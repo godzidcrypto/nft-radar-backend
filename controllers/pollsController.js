@@ -86,14 +86,20 @@ const createPoll = async (req, res) => {
 
 const updateVote = async (req, res) => {
   const { id } = req.params;
-  //   const { mints } = req.body;
+  const { projectId, yes, no, email } = req.body;
 
-  //   mints.map((mint) => {
-  //     console.log(mint);
-  //   });
-
-  const poll = await Poll.findById(id);
-  console.log(poll);
+  try {
+    await Poll.updateOne(
+      { "mints._id": projectId },
+      {
+        $inc: { "mints.$.yes": yes ? 1 : 0, "mints.$.no": no ? 1 : 0 },
+        $push: { "mints.$.voters": { email: email } },
+      }
+    );
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports = {
