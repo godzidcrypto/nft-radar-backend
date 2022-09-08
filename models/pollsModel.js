@@ -10,9 +10,9 @@ const pollSchema = new Schema({
   mints: [
     {
       project: String,
-      yes: Number,
-      no: Number,
-      voters: [{ email: String, vote: String }],
+      yes: { type: Number, default: 0 },
+      no: { type: Number, default: 0 },
+      voters: { type: [{ email: String, vote: String }], default: [] },
     },
   ],
 });
