@@ -12,7 +12,7 @@ const pollSchema = new Schema({
       project: String,
       yes: Number,
       no: Number,
-      voters: [{ email: String }],
+      voters: [{ email: String, vote: String }],
     },
   ],
 });

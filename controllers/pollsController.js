@@ -93,7 +93,7 @@ const updateVote = async (req, res) => {
       { "mints._id": projectId },
       {
         $inc: { "mints.$.yes": yes ? 1 : 0, "mints.$.no": no ? 1 : 0 },
-        $push: { "mints.$.voters": { email: email } },
+        $push: { "mints.$.voters": { email: email, vote: yes ? "Yes" : "No" } },
       }
     );
   } catch (error) {
