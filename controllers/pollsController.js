@@ -60,7 +60,7 @@ const updateVote = async (req, res) => {
 
   // code for updating votes
   // will only run if projectId exists
-  const { id, vote, email } = req.body;
+  const { id, vote, discordId } = req.body;
 
   console.log(vote);
 
@@ -70,7 +70,7 @@ const updateVote = async (req, res) => {
         { _id: id },
         {
           $inc: { yes: 1 },
-          $push: { voters: { email: email } },
+          $push: { voters: { discordId: discordId } },
         }
       );
     } else if (!vote) {
@@ -78,7 +78,7 @@ const updateVote = async (req, res) => {
         { _id: id },
         {
           $inc: { yes: -1 },
-          $pull: { voters: { email: email } },
+          $pull: { voters: { discordId: discordId } },
         }
       );
     }

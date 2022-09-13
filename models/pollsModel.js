@@ -50,7 +50,7 @@ const pollSchema = new Schema({
     type: Boolean,
   },
   yes: { type: Number, default: 0 },
-  voters: { type: [{ email: String, vote: String }], default: [] },
+  voters: { type: [{ discordId: String, vote: String }], default: [] },
 });
 
 module.exports = mongoose.model("Poll", pollSchema);
