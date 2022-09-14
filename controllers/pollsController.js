@@ -24,6 +24,7 @@ const createPoll = async (req, res) => {
     dagzen,
     yes,
     voters,
+    imageUrl,
   } = req.body;
 
   try {
@@ -43,6 +44,7 @@ const createPoll = async (req, res) => {
       dagzen,
       yes,
       voters,
+      imageUrl,
     });
     res.status(200).json(poll);
   } catch (error) {

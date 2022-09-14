@@ -51,6 +51,7 @@ const pollSchema = new Schema({
   },
   yes: { type: Number, default: 0 },
   voters: { type: [{ discordId: String, vote: String }], default: [] },
+  imageUrl: { type: String },
 });
 
 module.exports = mongoose.model("Poll", pollSchema);
