@@ -7,6 +7,22 @@ const getPolls = async (req, res) => {
   res.status(200).json(polls);
 };
 
+const getPoll = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such poll" });
+  }
+
+  const poll = await Poll.findById(id);
+
+  if (!poll) {
+    return res.status(404).json({ error: "No such poll" });
+  }
+
+  res.status(200).json(poll);
+};
+
 const createPoll = async (req, res) => {
   const {
     date,
@@ -66,10 +82,23 @@ const updateVote = async (req, res) => {
   // will only run if projectId exists
   const { id, vote, discordId } = req.body;
 
-  console.log(vote);
-
   try {
-    if (vote) {
+    if (vote === undefined) {
+      try {
+        const updatedPoll = await Poll.findOneAndUpdate(
+          { _id: id },
+          {
+            ...req.body,
+          },
+          { new: true }
+        );
+
+        return res.status(200).json(updatedPoll);
+      } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ error: error.message });
+      }
+    } else if (vote === true) {
       await Poll.updateOne(
         { _id: id },
         {
@@ -77,7 +106,7 @@ const updateVote = async (req, res) => {
           $push: { voters: { discordId: discordId } },
         }
       );
-    } else if (!vote) {
+    } else if (vote === false) {
       await Poll.updateOne(
         { _id: id },
         {
@@ -94,6 +123,7 @@ const updateVote = async (req, res) => {
 
 module.exports = {
   getPolls,
+  getPoll,
   createPoll,
   updateVote,
 };
