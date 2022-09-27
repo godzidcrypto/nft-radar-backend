@@ -72,14 +72,6 @@ const createPoll = async (req, res) => {
 };
 
 const updateVote = async (req, res) => {
-  //   const { id } = req.params;
-  //   const { date, mints } = req.body;
-  // will only run if projectId does not exist
-  // it updates the poll based on the date
-  // it adds a new projectId to the mints array
-
-  // code for updating votes
-  // will only run if projectId exists
   const { id, vote, discordId } = req.body;
 
   try {
