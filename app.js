@@ -7,8 +7,13 @@ const getPolls = require("./routes/polls");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
-app.options("*", cors());
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
