@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: ["https://nft-radar.vercel.app", "http://localhost:3000"],
   credentials: true,
   optionSuccessStatus: 200,
 };
